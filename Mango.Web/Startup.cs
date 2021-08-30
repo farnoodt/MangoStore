@@ -1,28 +1,26 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Mango.Web.Services;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mango.Web
 {
     public class Startup
     {
+        private IConfiguration Configuration { get; }
+        private IConfigurationRoot ConfigRoot;
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
+        [Route("appsettings")]
         public void ConfigureServices(IServiceCollection services)
         {
+            SD.ProductAPIBase = Configuration["ServiceUrls"];
+            services.AddHttpClient<IProductService, ProductService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddControllersWithViews();
         }
 
