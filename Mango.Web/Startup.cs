@@ -6,8 +6,7 @@ namespace Mango.Web
 {
     public class Startup
     {
-        private IConfiguration Configuration { get; }
-        private IConfigurationRoot ConfigRoot;
+        private IConfiguration Configuration;// { get; }
         public Startup(IConfiguration configuration)
         {
             this.Configuration = configuration;
@@ -15,10 +14,10 @@ namespace Mango.Web
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        [Route("appsettings")]
         public void ConfigureServices(IServiceCollection services)
         {
             SD.ProductAPIBase = Configuration["ServiceUrls"];
+            SD.ProductAPIBase = Configuration.GetSection("ServiceUrls").GetSection("ProductAPI").Value;
             services.AddHttpClient<IProductService, ProductService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddControllersWithViews();
