@@ -30,7 +30,7 @@ namespace Mango.Web.Services
             return await this.SendAsync<T>(new ApiRequest()
             {
                 ApiType = SD.ApiType.DELETE,
-                Url = SD.ProductAPIBase + "/api/products" + Id,
+                Url = SD.ProductAPIBase + "/api/products/" + Id,
                 AccessToken = ""          
             });
         }
@@ -47,7 +47,7 @@ namespace Mango.Web.Services
 
         public async Task<T> GetProductByIdAsync<T>(int Id)
         {
-            return await this.SendAsync<T>(new ApiRequest
+            return await this.SendAsync<T>(new ApiRequest()
             {
                 ApiType = SD.ApiType.GET,
                 Url = SD.ProductAPIBase + "/api/products/" + Id,

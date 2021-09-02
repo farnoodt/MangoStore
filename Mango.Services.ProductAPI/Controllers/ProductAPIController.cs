@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Mango.Services.ProductAPI.Controllers
 {
     [Route("api/products")]
+    [ApiController]
     public class ProductAPIController : ControllerBase
     {
         protected ResponseDto _response;
@@ -35,8 +36,8 @@ namespace Mango.Services.ProductAPI.Controllers
             return _response;
         }
 
-        [HttpGet]
-        [Route("{id}")]
+        [HttpGet("{productId}")]
+        //[Route("{id}")]
         public async Task<object> Get(int productId)
         {
             try
@@ -85,7 +86,7 @@ namespace Mango.Services.ProductAPI.Controllers
             return _response;
         }
 
-        [HttpDelete]
+        [HttpDelete("{productId}")]
         public async Task<object> Delete(int productId)
         {
             try

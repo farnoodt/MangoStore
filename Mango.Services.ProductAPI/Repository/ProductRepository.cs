@@ -3,10 +3,6 @@ using Mango.Services.ProductAPI.DBContexts;
 using Mango.Services.ProductAPI.DBContexts.Models;
 using Mango.Services.ProductAPI.DBContexts.Models.Repository;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mango.Services.ProductAPI.Repository
 {
@@ -44,6 +40,7 @@ namespace Mango.Services.ProductAPI.Repository
                 if (product == null)
                     return false;
                 _db.producs.Remove(product);
+                _db.SaveChanges();
                 return true;
             }
             catch
