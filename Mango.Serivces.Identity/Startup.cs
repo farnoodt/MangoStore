@@ -1,13 +1,8 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Mango.Serivces.Identity.DbContexts;
+using Mango.Serivces.Identity.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Mango.Serivces.Identity
 {
@@ -23,6 +18,25 @@ namespace Mango.Serivces.Identity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+            var builder = services.AddIdentityServer(options =>
+            {
+                options.Events.RaiseErrorEvents = true;
+                options.Events.RaiseInformationEvents = true;
+                options.Events.RaiseFailureEvents = true;
+                options.Events.RaiseSuccessEvents = true;
+                options.EmitStaticAudienceClaim = true;
+            }).AddInMemoryIdentityResources(SD.IdentityResources)
+            .AddInMemoryApiScopes(SD.ApiScopes)
+            .AddInMemoryClients(SD.clients)
+            .AddAspNetIdentity<ApplicationUser>();
+            
+            builder.AddDeveloperSigningCredential();
+
             services.AddControllersWithViews();
         }
 
@@ -43,7 +57,7 @@ namespace Mango.Serivces.Identity
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseIdentityServer();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
