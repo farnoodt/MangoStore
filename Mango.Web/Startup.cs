@@ -1,6 +1,5 @@
 using Mango.Web.Services;
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Configuration;
+
 
 namespace Mango.Web
 {
@@ -21,6 +20,25 @@ namespace Mango.Web
             services.AddHttpClient<IProductService, ProductService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddControllersWithViews();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "Cookies";
+                options.DefaultChallengeScheme = "oidc";
+            })
+                .AddCookie("Cookies", C => C.ExpireTimeSpan = TimeSpan.FromMinutes(10))
+                .AddOpenIdConnect("oidc", options =>
+                {
+                    options.Authority = Configuration.GetSection("ServiceUrls").GetSection("IdentityAPI").Value;
+                    options.GetClaimsFromUserInfoEndpoint = true;
+                    options.ClientId = "mango";
+                    options.ClientSecret = "secrt";
+                    options.ResponseType = "code";
+                    options.TokenValidationParameters.NameClaimType = "name";
+                    options.TokenValidationParameters.RoleClaimType = "role";
+                    options.Scope.Add("mango");
+                    options.SaveTokens = true;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,7 +58,7 @@ namespace Mango.Web
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

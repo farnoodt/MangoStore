@@ -1,4 +1,3 @@
-using System;
 
 namespace Mango.Serivces.Identity.Models
 {

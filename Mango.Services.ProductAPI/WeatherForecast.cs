@@ -1,4 +1,3 @@
-using System;
 
 namespace Mango.Services.ProductAPI
 {

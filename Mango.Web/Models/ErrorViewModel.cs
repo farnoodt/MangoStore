@@ -1,4 +1,3 @@
-using System;
 
 namespace Mango.Web.Models
 {
