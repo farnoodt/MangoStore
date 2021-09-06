@@ -1,6 +1,10 @@
+using Duende.IdentityServer.AspNetIdentity;
+using Duende.IdentityServer.Services;
+using IdentityServerHost.Quickstart.UI;
 using Mango.Serivces.Identity.DbContexts;
 using Mango.Serivces.Identity.Initializer;
 using Mango.Serivces.Identity.Models;
+using Mango.Serivces.Identity.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,9 +38,11 @@ namespace Mango.Serivces.Identity
             }).AddInMemoryIdentityResources(SD.IdentityResources)
             .AddInMemoryApiScopes(SD.ApiScopes)
             .AddInMemoryClients(SD.clients)
-            .AddAspNetIdentity<ApplicationUser>();
+            .AddAspNetIdentity<ApplicationUser>()
+            .AddTestUsers(TestUsers.Users);
 
             services.AddScoped<IDbInitializer, DbInitializer>();
+            services.AddScoped<IProfileService, ProfileService>();
             builder.AddDeveloperSigningCredential();
 
             services.AddControllersWithViews();
