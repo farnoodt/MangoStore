@@ -42,6 +42,11 @@ namespace Mango.Web.Services
             });
         }
 
+        public Task<T> GetAllProductsAsync<T>(string v)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<T> GetProductByIdAsync<T>(int Id)
         {
             return await this.SendAsync<T>(new ApiRequest()

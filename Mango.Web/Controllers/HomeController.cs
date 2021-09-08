@@ -1,7 +1,9 @@
 ﻿using Mango.Web.Models;
+using Mango.Web.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
 
 
@@ -10,16 +12,36 @@ namespace Mango.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IProductService _productServices;
+        public HomeController(ILogger<HomeController> logger , IProductService productServices)
         {
             _logger = logger;
+            _productServices = productServices;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            List<ProductDto> list = new();
+            var response = await _productServices.GetAllProductsAsync<ResponseDto>();
+            if(response != null && response.IsSuccess)
+            {
+                list = JsonConvert.DeserializeObject<List<ProductDto>>(Convert.ToString(response.Result));
+            }
+
+            return View(list);
         }
+
+        public async Task<IActionResult> Details(int ProductId)
+        {
+            ProductDto model = new();
+            var response = await _productServices.GetProductByIdAsync<ResponseDto>(ProductId);
+            if (response != null && response.IsSuccess)
+            {
+                model = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result));
+            }
+            return View(model);
+        }
+
 
         public IActionResult Privacy()
         {
@@ -41,6 +63,7 @@ namespace Mango.Web.Controllers
 
         public IActionResult Logout()
         {
+            string s = "";
             return SignOut("Cookies","oidc");
         }
     }
