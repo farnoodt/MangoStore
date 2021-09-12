@@ -1,6 +1,6 @@
 ﻿
 
-namespace Mango.Services.ProductAPI.Models.Dto
+namespace Mango.Services.ShoppingCart.Models.Dto
 {
     public class ResponseDto
     {

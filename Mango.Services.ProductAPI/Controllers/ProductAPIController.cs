@@ -1,6 +1,5 @@
-﻿using Mango.Services.ProductAPI.DBContexts.Models;
+﻿using Mango.Services.ProductAPI.Models.Dto;
 using Mango.Services.ProductAPI.DBContexts.Models.Repository;
-using Mango.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

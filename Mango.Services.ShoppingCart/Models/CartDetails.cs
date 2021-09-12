@@ -1,10 +1,9 @@
-﻿
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 
 namespace Mango.Services.ShoppingCart.Models
 {
-    public class CratDetails
+    public class CartDetails
     {
         public int CartDetailsId { get; set; }
         public int CartHeaderId { get; set; }

@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Mango.Services.ShoppingCart.Models;
+using Mango.Services.ShoppingCart.Models.Dto;
 
 namespace Mango.Services.ShoppingCart
 {
@@ -8,8 +10,10 @@ namespace Mango.Services.ShoppingCart
         {
             var mappingConfig = new MapperConfiguration(config =>
             {
-                //config.CreateMap<ProductDto, Product>();
-                //config.CreateMap<Product, ProductDto>();
+                config.CreateMap<ProductDto, Product>().ReverseMap();
+                config.CreateMap<CartHeaderDto, CartHeader>().ReverseMap();
+                config.CreateMap<CartHeaderDto, CartDetails>().ReverseMap();
+                config.CreateMap<CartDto, Cart>().ReverseMap();
             });
             return mappingConfig;
         }

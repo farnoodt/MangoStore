@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mango.Services.ShoppingCart.Models
 {
-    public class Produc
+    public class Product
     {
         [Key , DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProductId { get; set; }

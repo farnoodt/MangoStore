@@ -3,7 +3,7 @@ using Mango.Services.ShoppingCart.DbContexts;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-
+using Mango.Services.ShoppingCart.Repository;
 
 namespace Mango.Services.ShoppingCart
 {
@@ -26,7 +26,7 @@ namespace Mango.Services.ShoppingCart
             IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
             services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-           // services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICartRepository, CartRepository>();
             services.AddControllers();
             services.AddAuthentication("Bearer")
             .AddJwtBearer("Bearer", options =>
