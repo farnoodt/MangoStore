@@ -1,5 +1,5 @@
 using Mango.Web.Services;
-
+using Mango.Web.Services.IServices;
 
 namespace Mango.Web
 {
@@ -15,10 +15,15 @@ namespace Mango.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpClient<IProductService, ProductService>();
+            services.AddHttpClient<ICartService, CartService>();
+
             SD.ProductAPIBase = Configuration["ServiceUrls"];
             SD.ProductAPIBase = Configuration.GetSection("ServiceUrls").GetSection("ProductAPI").Value;
-            services.AddHttpClient<IProductService, ProductService>();
+            SD.ShoppingCartAPIBase = Configuration.GetSection("ServiceUrls").GetSection("ShoppingCartAPIBase").Value;
+            
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICartService, CartService>();
             services.AddControllersWithViews();
 
             services.AddAuthentication(options =>
