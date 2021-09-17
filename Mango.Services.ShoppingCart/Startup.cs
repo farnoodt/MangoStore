@@ -1,11 +1,11 @@
 using AutoMapper;
-using Mango.Services.ShoppingCart.DbContexts;
+using Mango.Services.ShoppingCartAPI.DbContexts;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
-using Mango.Services.ShoppingCart.Repository;
+using Mango.Services.ShoppingCartAPI.Repository;
 
-namespace Mango.Services.ShoppingCart
+namespace Mango.Services.ShoppingCartAPI
 {
     public class Startup
     {

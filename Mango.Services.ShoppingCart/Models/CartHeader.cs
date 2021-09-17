@@ -1,7 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 
-namespace Mango.Services.ShoppingCart.Models
+namespace Mango.Services.ShoppingCartAPI.Models
 {
     public class CartHeader
     {

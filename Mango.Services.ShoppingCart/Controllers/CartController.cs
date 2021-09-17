@@ -1,9 +1,9 @@
-﻿using Mango.Services.ShoppingCart.Models.Dto;
-using Mango.Services.ShoppingCart.Repository;
+﻿using Mango.Services.ShoppingCartAPI.Models.Dto;
+using Mango.Services.ShoppingCartAPI.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 
-namespace Mango.Services.ShoppingCart.Controllers
+namespace Mango.Services.ShoppingCartAPI.Controllers
 {
     [ApiController]
     [Route("api/cart")]

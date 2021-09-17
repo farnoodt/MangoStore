@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Mango.Services.ShoppingCart.Models
+namespace Mango.Services.ShoppingCartAPI.Models
 {
     public class Product
     {

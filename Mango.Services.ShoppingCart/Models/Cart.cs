@@ -1,5 +1,5 @@
 ﻿
-namespace Mango.Services.ShoppingCart.Models
+namespace Mango.Services.ShoppingCartAPI.Models
 {
     public class Cart
     {

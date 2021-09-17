@@ -25,7 +25,7 @@ namespace Mango.Web.Controllers
         public async Task<IActionResult> Index()
         {
             List<ProductDto> list = new();
-            var response = await _productServices.GetAllProductsAsync<ResponseDto>();
+            var response = await _productServices.GetAllProductsAsync<ResponseDto>("");
             if(response != null && response.IsSuccess)
             {
                 list = JsonConvert.DeserializeObject<List<ProductDto>>(Convert.ToString(response.Result));
@@ -37,7 +37,7 @@ namespace Mango.Web.Controllers
         public async Task<IActionResult> Details(int ProductId)
         {
             ProductDto model = new();
-            var response = await _productServices.GetProductByIdAsync<ResponseDto>(ProductId);
+            var response = await _productServices.GetProductByIdAsync<ResponseDto>(ProductId,"");
             if (response != null && response.IsSuccess)
             {
                 model = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(response.Result));
@@ -62,7 +62,7 @@ namespace Mango.Web.Controllers
                 Count = productDto.Count,
                 ProductId = productDto.ProductId
             };
-            var resp = await _productServices.GetProductByIdAsync<ResponseDto>(productDto.ProductId);
+            var resp = await _productServices.GetProductByIdAsync<ResponseDto>(productDto.ProductId, "");
             if(resp != null && resp.IsSuccess)
             {
                 cartDetails.Product = JsonConvert.DeserializeObject<ProductDto>(Convert.ToString(resp.Result));
