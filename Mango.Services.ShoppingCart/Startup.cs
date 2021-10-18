@@ -31,6 +31,7 @@ namespace Mango.Services.ShoppingCartAPI
             services.AddAuthentication("Bearer")
             .AddJwtBearer("Bearer", options =>
             {
+                //"https://localhost:44365/
                 options.Authority = Configuration.GetSection("Identity").GetSection("IdentityUrl").Value;
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
@@ -91,7 +92,7 @@ namespace Mango.Services.ShoppingCartAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

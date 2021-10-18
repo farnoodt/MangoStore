@@ -1,9 +1,8 @@
-﻿
-namespace Mango.Services.ShoppingCartAPI.Models
+﻿namespace Mango.Services.ShoppingCartAPI.Models
 {
     public class Cart
     {
-        public CartHeader cartHeader { get; set; }
-        public IEnumerable<CartDetails> CartDetails{ get; set; }
+        public CartHeader CartHeader { get; set; }
+        public IEnumerable<CartDetails> CartDetails { get; set; }
     }
 }

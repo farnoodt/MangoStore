@@ -34,6 +34,8 @@ namespace Mango.Web.Controllers
             return View(list);
         }
 
+       
+        [Authorize]
         public async Task<IActionResult> Details(int ProductId)
         {
             ProductDto model = new();
@@ -44,18 +46,25 @@ namespace Mango.Web.Controllers
             }
             return View(model);
         }
+
         [HttpPost]
         [ActionName("Details")]
         [Authorize]
         public async Task<IActionResult> DetailsPost(ProductDto productDto)
         {
+           
             CartDto cartDto = new()
             {
                 cartHeader = new CartHeaderDto
                 {
                     UserId = User.Claims.Where(u => u.Type == "sub")?.FirstOrDefault()?.Value
+                    //UserId = "367b597e-0f09-4e30-ba93-be813cd4a710",
+                    //CartHeaderId = 1
+
                 }
             };
+           
+           
 
             CartDetailsDto cartDetails = new CartDetailsDto()
             {
@@ -78,7 +87,8 @@ namespace Mango.Web.Controllers
             {
                 return RedirectToAction(nameof(Index));
             }
-            return View(productDto);
+            //IMapper _mapper 
+            return View(resp.Result);
         }
 
         public IActionResult Privacy()

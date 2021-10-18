@@ -85,6 +85,7 @@ namespace Mango.Services.ProductAPI.Controllers
             }
             return _response;
         }
+
         [Authorize(Roles="Admin")]
         [HttpDelete("{productId}")]
         public async Task<object> Delete(int productId)
