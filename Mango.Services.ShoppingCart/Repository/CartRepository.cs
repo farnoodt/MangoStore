@@ -21,9 +21,10 @@ namespace Mango.Services.ShoppingCartAPI.Repository
 
         public async Task<CartDto> CreateUpdateCart(CartDto cartDto)
         {
-            
+            //If header is null , create header and details.
             Cart cart = _mapper.Map<Cart>(cartDto);
-            var prodIndb = await _db.Products.FirstOrDefaultAsync(u => u.ProductId == cartDto.CartDetails.FirstOrDefault().ProductId);
+            var prodIndb = await _db.Products
+                .FirstOrDefaultAsync(u => u.ProductId == cartDto.CartDetails.FirstOrDefault().ProductId);
             //Check if product exists in database, if not create it!
             if(prodIndb == null)
             {
@@ -65,7 +66,7 @@ namespace Mango.Services.ShoppingCartAPI.Repository
                     cart.CartDetails.FirstOrDefault().Product = null;
                     cart.CartDetails.FirstOrDefault().Count += cratDetailsFromDb.Count;
                     _db.CartDetails.Update(cart.CartDetails.FirstOrDefault());
-                    _db.SaveChangesAsync();
+                    await _db.SaveChangesAsync();
                 }
             }
             return _mapper.Map<CartDto>(cart);

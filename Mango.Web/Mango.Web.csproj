@@ -17,4 +17,8 @@
     <Folder Include="wwwroot\Pics\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Mango.Services.ShoppingCart\Mango.Services.ShoppingCartAPI.csproj" />
+  </ItemGroup>
+
 </Project>
