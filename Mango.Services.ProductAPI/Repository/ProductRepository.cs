@@ -22,11 +22,11 @@ namespace Mango.Services.ProductAPI.Repository
             Product product = _Mapper.Map<ProductDto, Product>(productDto);
             if(product.ProductId >0)
             {
-                _db.producs.Update(product);
+                _db.Products.Update(product);
             }
             else
             {
-                _db.producs.Add(product);
+                _db.Products.Add(product);
             }
 
             await _db.SaveChangesAsync();
@@ -37,10 +37,10 @@ namespace Mango.Services.ProductAPI.Repository
         {
             try
             {
-                Product product = await _db.producs.FirstOrDefaultAsync(x => x.ProductId == productId);
+                Product product = await _db.Products.FirstOrDefaultAsync(x => x.ProductId == productId);
                 if (product == null)
                     return false;
-                _db.producs.Remove(product);
+                _db.Products.Remove(product);
                 _db.SaveChanges();
                 return true;
             }
@@ -52,13 +52,13 @@ namespace Mango.Services.ProductAPI.Repository
 
         public async Task<ProductDto> GetProductById(int productId)
         {
-            Product product = await _db.producs.Where(x=>x.ProductId==productId).FirstOrDefaultAsync();
+            Product product = await _db.Products.Where(x=>x.ProductId==productId).FirstOrDefaultAsync();
             return _Mapper.Map<ProductDto>(product);
         }
 
         public async Task<IEnumerable<ProductDto>> GetProducts()
         {
-            List<Product> productList = await _db.producs.ToListAsync();
+            List<Product> productList = await _db.Products.ToListAsync();
             return _Mapper.Map<List<ProductDto>>(productList);
         }
     }

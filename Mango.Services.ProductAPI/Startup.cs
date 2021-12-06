@@ -28,6 +28,7 @@ namespace Mango.Services.ProductAPI
             services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICategoryRepository, ICategoryRepository>();
             services.AddControllers();
             services.AddAuthentication("Bearer")
             .AddJwtBearer("Bearer", options =>
