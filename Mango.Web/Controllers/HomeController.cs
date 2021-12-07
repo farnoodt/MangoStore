@@ -1,4 +1,5 @@
-﻿using Mango.Web.Models;
+﻿using Mango.Web.Models.Dto;
+using Mango.Web.Models;
 using Mango.Web.Services;
 using Mango.Web.Services.IServices;
 using Microsoft.AspNetCore.Authentication;
@@ -6,7 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
-
 
 namespace Mango.Web.Controllers
 {

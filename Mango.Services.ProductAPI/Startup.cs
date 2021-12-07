@@ -2,7 +2,6 @@ using Mango.Services.ProductAPI.DBContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using AutoMapper;
-using Mango.Services.ProductAPI.DBContexts.Models.Repository;
 using Mango.Services.ProductAPI.Repository;
 using Microsoft.IdentityModel.Tokens;
 
@@ -28,7 +27,7 @@ namespace Mango.Services.ProductAPI
             services.AddSingleton(mapper);
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IProductRepository, ProductRepository>();
-            services.AddScoped<ICategoryRepository, ICategoryRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddControllers();
             services.AddAuthentication("Bearer")
             .AddJwtBearer("Bearer", options =>
