@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Mango.Web.Models.Dto.CategoryDto>
+
+<br />
+<br />
+<div class="container p-4 border">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primary">
+                Category List
+            </h1>
+        </div>
+        <div class="col text-end pt-1">
+            <a asp-action="create" class="btn btn-outline-primary"><i class="fas fa-plus"> Create New Category</i></a>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Category Id</th>
+                <th>Category Name</th>
+                <th>Parent Id</th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CategoryId</td>
+                <td>@item.Name</td>
+                <td>@(item.ParentId==0?"-": item.ParentId)</td>
+                <td></td>
+            </tr>
+        }
+    </table>
+</div>

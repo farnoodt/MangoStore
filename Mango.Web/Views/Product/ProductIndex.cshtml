@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Mango.Web.Models.ProductDto>
+﻿@model IEnumerable<Mango.Web.Models.Dto.ProductDto>
 <div class="container p-4 border">
     <div class="row p-2">
         <div class="col">
@@ -30,7 +30,7 @@
             {
                 <tr>
                     <td>@item.Name</td>
-                    <td>@item.CategoryName</td>
+                    <td>@item.Category.Name</td>
                     <td>@((item.Price).ToString("c"))</td>
                     <td>
                         <a asp-action="ProductEdit" class="btn btn-success" asp-route-productId="@item.ProductId">

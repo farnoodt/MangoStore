@@ -16,12 +16,14 @@ namespace Mango.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHttpClient<IProductService, ProductService>();
+            services.AddHttpClient<ICategoryService, CategoryService>();
             services.AddHttpClient<ICartService, CartService>();
 
             SD.ProductAPIBase = Configuration.GetSection("ServiceUrls").GetSection("ProductAPI").Value;
             SD.ShoppingCartAPIBase = Configuration.GetSection("ServiceUrls").GetSection("ShoppingCartAPI").Value;
             
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICartService, CartService>();
             services.AddControllersWithViews();
 

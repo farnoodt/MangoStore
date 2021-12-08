@@ -11,35 +11,56 @@ namespace Mango.Web.Services
         {
             this._clientFactory = clientFactory;
         }
-        public async Task<T> CreateCategoryAsync<T>(CategoryDto categoryDto)
+        public async Task<T> CreateCategoryAsync<T>(CategoryDto categoryDto, string token = null)
         {
             return await this.SendAsync<T>(new Models.ApiRequest()
             {
                 ApiType = SD.ApiType.POST,
                 Data = categoryDto,
                 Url = SD.CategoryAPIBase + "/api/categories",
+                AccessToken = token
+            });
+        }
+
+        public async Task<T> DeleteCategoryAsync<T>(int id, string token = null)
+        {
+            return await this.SendAsync<T>(new Models.ApiRequest()
+            {
+                ApiType = SD.ApiType.DELETE,
+                Url = SD.CategoryAPIBase + "/api/categories/" + id,
+                AccessToken = token
+            });
+        }
+
+        public async Task<T> GetAllCategoriesAsync<T>(string token = null)
+        {
+            return await this.SendAsync<T>(new Models.ApiRequest()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = SD.ProductAPIBase + "/api/categories" ,
                 AccessToken = ""
             });
         }
 
-        public Task<T> DeleteCategoryAsync<T>(int id)
+        public async Task<T> GetCategoryByIdAsync<T>(int id, string token = null)
         {
-            throw new NotImplementedException();
+            return await this.SendAsync<T>(new Models.ApiRequest()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = SD.CategoryAPIBase + "/api/categories/" + id,
+                AccessToken = ""
+            });
         }
 
-        public Task<T> GetAllCategoriesAsync<T>()
+        public async Task<T> UpdateCategoryAsync<T>(CategoryDto categoryDto, string token = null)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> GetCategoryByIdAsync<T>(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<T> UpdateCategoryAsync<T>(CategoryDto categoryDto)
-        {
-            throw new NotImplementedException();
+            return await this.SendAsync<T>(new Models.ApiRequest()
+            {
+                ApiType = SD.ApiType.PUT,
+                Url = SD.CategoryAPIBase + "/api/categories" ,
+                Data = categoryDto,
+                AccessToken = ""
+            });
         }
     }
 }
