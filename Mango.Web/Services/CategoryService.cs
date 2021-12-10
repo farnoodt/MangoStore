@@ -1,5 +1,8 @@
 ﻿using Mango.Web.Models.Dto;
 using Mango.Web.Services.IServices;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
+
 
 namespace Mango.Web.Services
 {
@@ -61,6 +64,49 @@ namespace Mango.Web.Services
                 Data = categoryDto,
                 AccessToken = ""
             });
+        }
+
+        public async Task<CategoryViewModelDto> GetAllCategoriesDDAsync<T>(string token = null)
+        {
+            var CategorySelectListItem = await GetCategories<ResponseDto>();
+            var category = new CategoryViewModelDto()
+            {
+                CategoryId = 4,
+                Categories = CategorySelectListItem 
+            };
+            
+            return category;
+        }
+
+        public async Task<IEnumerable<SelectListItem>> GetCategories<T>()
+        {
+            List<CategoryDto> list = new();
+            ResponseDto response = await this.SendAsync<ResponseDto>(new Models.ApiRequest()
+            {
+                ApiType = SD.ApiType.GET,
+                Url = SD.ProductAPIBase + "/api/categories",
+                AccessToken = ""
+            });
+
+            if (response != null && response.IsSuccess)
+            {
+                list = JsonConvert.DeserializeObject<List<CategoryDto>>(Convert.ToString(response.Result));
+            }
+
+            List<SelectListItem> CategoryList = list.OrderBy(x=>x.Name)
+                                                 .Select( x=> new SelectListItem
+                                                 {
+                                                     Text = x.Name,
+                                                     Value = x.CategoryId.ToString()
+                                                 }).ToList();
+
+            CategoryList.Insert(0, new SelectListItem()
+            {
+                Text = "----Select----",
+                Value = string.Empty
+            });
+
+            return new SelectList( CategoryList, "Value", "Text") ;
         }
     }
 }

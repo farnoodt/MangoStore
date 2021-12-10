@@ -1,4 +1,4 @@
-﻿@model Mango.Web.Models.Dto.CategoryDto
+﻿@model Mango.Web.Models.Dto.CategoryViewModelDto
 
 <form asp-action="ProductCreate">
     <br />
@@ -20,7 +20,7 @@
             </div>
             <div class="col-10 pb-3">
                 Categories
-                <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.ListofCategory,"Value","Text"))">
+                <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(Model.Categories,"Value","Text"))">
                 </select>
 
                 @*<span asp-validation-for="ParentId" class="text-danger"></span>*@
