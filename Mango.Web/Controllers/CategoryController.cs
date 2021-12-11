@@ -26,15 +26,25 @@ namespace Mango.Web.Controllers
             return View(list);
         }
 
+        public async Task<IActionResult> CategoryCreate()
+        {
+            var response = await _categoryService.GetAllCategoriesDDAsync<ResponseDto>("access_token");
+            return View(response);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> CategoryCreate(CategoryDto categoryDto)
         {
-
-            
-            var response = await _categoryService.GetAllCategoriesDDAsync<ResponseDto>("access_token");
-
-
-            //ViewBag.ListofCategory = response;
-            return View(response);
+            if (ModelState.IsValid)
+            {
+                var response = await _categoryService.CreateCategoryAsync<ResponseDto>(categoryDto, "access_token");
+                if (response != null && response.IsSuccess)
+                {
+                    return RedirectToAction(nameof(CategoryIndex));
+                }
+            }
+            return View(categoryDto);
         }
     }
 }
