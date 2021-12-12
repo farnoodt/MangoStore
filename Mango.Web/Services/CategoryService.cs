@@ -20,7 +20,7 @@ namespace Mango.Web.Services
             {
                 ApiType = SD.ApiType.POST,
                 Data = categoryDto,
-                Url = SD.CategoryAPIBase + "/api/categories",
+                Url = SD.ProductAPIBase + "/api/categories",
                 AccessToken = token
             });
         }
@@ -30,7 +30,7 @@ namespace Mango.Web.Services
             return await this.SendAsync<T>(new Models.ApiRequest()
             {
                 ApiType = SD.ApiType.DELETE,
-                Url = SD.CategoryAPIBase + "/api/categories/" + id,
+                Url = SD.ProductAPIBase + "/api/categories/" + id,
                 AccessToken = token
             });
         }
@@ -50,7 +50,7 @@ namespace Mango.Web.Services
             return await this.SendAsync<T>(new Models.ApiRequest()
             {
                 ApiType = SD.ApiType.GET,
-                Url = SD.CategoryAPIBase + "/api/categories/" + id,
+                Url = SD.ProductAPIBase + "/api/categories/" + id,
                 AccessToken = ""
             });
         }
@@ -60,53 +60,53 @@ namespace Mango.Web.Services
             return await this.SendAsync<T>(new Models.ApiRequest()
             {
                 ApiType = SD.ApiType.PUT,
-                Url = SD.CategoryAPIBase + "/api/categories" ,
+                Url = SD.ProductAPIBase + "/api/categories" ,
                 Data = categoryDto,
                 AccessToken = ""
             });
         }
 
-        public async Task<CategoryViewModelDto> GetAllCategoriesDDAsync<T>(string token = null)
-        {
-            var CategorySelectListItem = await GetCategories<ResponseDto>();
-            var category = new CategoryViewModelDto()
-            {
-                CategoryId = 4,
-                Categories = CategorySelectListItem 
-            };
+        //public async Task<CategoryViewModelDto> GetAllCategoriesDDAsync<T>(string token = null)
+        //{
+        //    var CategorySelectListItem = await GetCategories<ResponseDto>();
+        //    var category = new CategoryViewModelDto()
+        //    {
+               
+        //        Categories = CategorySelectListItem 
+        //    };
             
-            return category;
-        }
+        //    return category;
+        //}
 
-        public async Task<IEnumerable<SelectListItem>> GetCategories<T>()
-        {
-            List<CategoryDto> list = new();
-            ResponseDto response = await this.SendAsync<ResponseDto>(new Models.ApiRequest()
-            {
-                ApiType = SD.ApiType.GET,
-                Url = SD.ProductAPIBase + "/api/categories",
-                AccessToken = ""
-            });
+        //public async Task<IEnumerable<SelectListItem>> GetCategories<T>()
+        //{
+        //    List<CategoryDto> list = new();
+        //    ResponseDto response = await this.SendAsync<ResponseDto>(new Models.ApiRequest()
+        //    {
+        //        ApiType = SD.ApiType.GET,
+        //        Url = SD.ProductAPIBase + "/api/categories",
+        //        AccessToken = ""
+        //    });
 
-            if (response != null && response.IsSuccess)
-            {
-                list = JsonConvert.DeserializeObject<List<CategoryDto>>(Convert.ToString(response.Result));
-            }
+        //    if (response != null && response.IsSuccess)
+        //    {
+        //        list = JsonConvert.DeserializeObject<List<CategoryDto>>(Convert.ToString(response.Result));
+        //    }
 
-            List<SelectListItem> CategoryList = list.OrderBy(x=>x.Name)
-                                                 .Select( x=> new SelectListItem
-                                                 {
-                                                     Text = x.Name,
-                                                     Value = x.CategoryId.ToString()
-                                                 }).ToList();
+        //    List<SelectListItem> CategoryList = list.OrderBy(x=>x.Name)
+        //                                         .Select( x=> new SelectListItem
+        //                                         {
+        //                                             Text = x.Name,
+        //                                             Value = x.CategoryId.ToString()
+        //                                         }).ToList();
 
-            CategoryList.Insert(0, new SelectListItem()
-            {
-                Text = "----Select----",
-                Value = string.Empty
-            });
+        //    CategoryList.Insert(0, new SelectListItem()
+        //    {
+        //        Text = "----Select----",
+        //        Value = string.Empty
+        //    });
 
-            return new SelectList( CategoryList, "Value", "Text") ;
-        }
+        //    return new SelectList( CategoryList, "Value", "Text") ;
+        //}
     }
 }

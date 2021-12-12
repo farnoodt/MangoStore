@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Mango.Services.ProductAPI.Models.Dto
+namespace Mango.Web.Models.Dto
 {
-    public class SubCategory
+    public class SubCategoryDto
     {
-        [Key]
         public int SubCategoryId { get; set; }
         public string SubCategoryName { get; set; }
         public int CategoryId { get; set; }

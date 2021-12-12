@@ -1,5 +1,6 @@
 ﻿using Mango.Web.Models.Dto;
 using Mango.Web.Services.IServices;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
@@ -28,8 +29,7 @@ namespace Mango.Web.Controllers
 
         public async Task<IActionResult> CategoryCreate()
         {
-            var response = await _categoryService.GetAllCategoriesDDAsync<ResponseDto>("access_token");
-            return View(response);
+            return View();
         }
 
         [HttpPost]
@@ -45,6 +45,62 @@ namespace Mango.Web.Controllers
                 }
             }
             return View(categoryDto);
+        }
+
+        public async Task<IActionResult> CategoryEdit(int CategoryId)
+        {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var response = await _categoryService.GetCategoryByIdAsync<ResponseDto>(CategoryId, accessToken);
+            if (response != null && response.IsSuccess)
+            {
+                CategoryDto model = JsonConvert.DeserializeObject<CategoryDto>(Convert.ToString(response.Result));
+                return View(model);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CategoryEdit(CategoryDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                var accessToken = await HttpContext.GetTokenAsync("access_token");
+                var response = await _categoryService.UpdateCategoryAsync<ResponseDto>(model, accessToken);
+                if (response != null && response.IsSuccess)
+                {
+                    return RedirectToAction(nameof(CategoryIndex));
+                }
+            }
+            return View(model);
+        }
+
+        public async Task<IActionResult> CategoryDelete(int CategoryId)
+        {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var response = await _categoryService.GetCategoryByIdAsync<ResponseDto>(CategoryId);
+            if (response != null && response.IsSuccess)
+            {
+                CategoryDto model = JsonConvert.DeserializeObject<CategoryDto>(Convert.ToString(response.Result));
+                return View(model);
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CategoryDelete(CategoryDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                var accessToken = await HttpContext.GetTokenAsync("access_token");
+                var response = await _categoryService.DeleteCategoryAsync<ResponseDto>(model.CategoryId, accessToken);
+                if (response != null && response.IsSuccess)
+                {
+                    return RedirectToAction(nameof(CategoryIndex));
+                }
+            }
+            return View(model);
         }
     }
 }

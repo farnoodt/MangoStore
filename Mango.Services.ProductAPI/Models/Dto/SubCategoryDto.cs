@@ -1,14 +1,10 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
 
-using System.ComponentModel.DataAnnotations;
-
-namespace Mango.Services.ProductAPI.Models
+namespace Mango.Services.ProductAPI.Models.Dto
 {
-    public class SubCategory
+    public class SubCategoryDto
     {
-        [Key]
         public int SubCategoryId { get; set; }
-        [Required]
         public string SubCategoryName { get; set; }
         public int CategoryId { get; set; }
         public Category category { get; set; }

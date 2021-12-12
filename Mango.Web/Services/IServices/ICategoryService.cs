@@ -11,8 +11,8 @@ namespace Mango.Web.Services.IServices
         Task<T> CreateCategoryAsync<T>(CategoryDto categoryDto, string token = null);
         Task<T> UpdateCategoryAsync<T>(CategoryDto categoryDto, string token = null);
         Task<T> DeleteCategoryAsync<T>(int id, string token = null);
-        Task<IEnumerable<SelectListItem>> GetCategories<T>();
-        Task<CategoryViewModelDto> GetAllCategoriesDDAsync<T>(string token = null);
+        //Task<IEnumerable<SelectListItem>> GetCategories<T>();
+        //Task<CategoryViewModelDto> GetAllCategoriesDDAsync<T>(string token = null);
 
     }
 }
