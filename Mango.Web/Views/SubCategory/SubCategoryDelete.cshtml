@@ -1,0 +1,43 @@
+﻿@model Mango.Web.Models.Dto.SubCategoryDto
+
+<form asp-action="SubCategoryDelete">
+    <input asp-for="SubCategoryId" hidden />
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-primary">Delete SubCategory</h1>
+
+        <hr />
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-2">
+                <label asp-for="SubCategoryName" class="control-label pt-2" style="font-size:20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="SubCategoryName" class="form-control" />
+                <span asp-validation-for="SubCategoryName" class="text-danger"></span>
+            </div>
+            @*<div class="col-2">
+            <label asp-for="category.Name" class="control-label pt-2" style="font-size:20px;"></label>
+        </div>
+        <div class="col-10 pb-3">
+            <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(ViewBag.ListOfCategory,"CategoryId","Name"))">
+                <option selected="selected" value="CategoryId"></option>
+            </select>
+        </div>*@
+            <div class="col-2 offset-2">
+                <a asp-action="SubCategoryIndex" class="btn-primary btn form-control ">Back to List</a>
+            </div>
+            <div class="col-2">
+                <input type="submit" value="Delete" class="btn btn-success form-control" />
+            </div>
+
+        </div>
+
+        <div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

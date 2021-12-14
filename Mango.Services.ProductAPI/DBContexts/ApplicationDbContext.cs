@@ -16,10 +16,12 @@ namespace Mango.Services.ProductAPI.DBContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<SubCategory>()
-           .HasOne(p => p.category)
-           .WithMany(b => b.subCategories);
+            // base.OnModelCreating(modelBuilder);
+            // modelBuilder.Entity<SubCategory>()
+            //.HasOne(p => p.category)
+            //.WithMany(b => b.subCategories);
+
+            
 
             modelBuilder.Entity<Category>().HasData(new Category
             {

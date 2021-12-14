@@ -14,6 +14,8 @@ namespace Mango.Services.ProductAPI
                 config.CreateMap<Product, ProductDto>();
                 config.CreateMap<Category, CategoryDto>();
                 config.CreateMap<CategoryDto, Category>();
+                config.CreateMap<SubCategoryDto, SubCategory>();
+                config.CreateMap<SubCategory, SubCategoryDto>();
             });
             return mappingConfig;
         }

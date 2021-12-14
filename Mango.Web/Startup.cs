@@ -17,6 +17,7 @@ namespace Mango.Web
         {
             services.AddHttpClient<IProductService, ProductService>();
             services.AddHttpClient<ICategoryService, CategoryService>();
+            services.AddHttpClient<ISubCategoryService, SubCategoryService>();
             services.AddHttpClient<ICartService, CartService>();
 
             SD.ProductAPIBase = Configuration.GetSection("ServiceUrls").GetSection("ProductAPI").Value;
@@ -24,6 +25,7 @@ namespace Mango.Web
             
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ISubCategoryService, SubCategoryService>();
             services.AddScoped<ICartService, CartService>();
             services.AddControllersWithViews();
 

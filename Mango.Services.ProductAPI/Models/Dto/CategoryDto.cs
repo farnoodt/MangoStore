@@ -6,7 +6,7 @@ namespace Mango.Services.ProductAPI.Models.Dto
     {
         public int CategoryId { get; set; }
         public string Name { get; set; }
-      
-        public List<SubCategoryDto> subCategories{ get; set; }
+
+        public List<SubCategoryDto> subCategories { get; set; } = new List<SubCategoryDto>();
     }
 }

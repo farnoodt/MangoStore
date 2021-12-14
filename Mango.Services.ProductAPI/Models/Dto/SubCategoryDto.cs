@@ -8,6 +8,6 @@ namespace Mango.Services.ProductAPI.Models.Dto
         public string SubCategoryName { get; set; }
         public int CategoryId { get; set; }
         public Category category { get; set; }
-        public List<Product> products { get; set; }
+        public virtual List<Product> products { get; set; }
     }
 }

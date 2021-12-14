@@ -9,7 +9,6 @@ namespace Mango.Services.ProductAPI.Models
         public int CategoryId { get; set; }
         [Required]
         public string Name { get; set; }
-        
-        public List<SubCategory> subCategories{ get; set; }
+        public List<SubCategory> subCategories { get; set; } = new List<SubCategory>();
     }
 }

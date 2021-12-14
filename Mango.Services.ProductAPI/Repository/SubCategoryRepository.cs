@@ -35,9 +35,9 @@ namespace Mango.Services.ProductAPI.Repository
         {
             try
             {
-                SubCategory subCategory = _db.SubCategories.Where(x => x.SubCategoryId == subCategoryId).FirstOrDefault();
+                SubCategory subCategory = _db.SubCategories.Where(x => x.SubCategoryId == subCategoryId).Include(x=>x.products).FirstOrDefault();
 
-                if (subCategory != null)
+                if (subCategory != null && subCategory.products.Count ==0 )
                     _db.SubCategories.Remove(subCategory);
 
                 await _db.SaveChangesAsync();
@@ -51,13 +51,22 @@ namespace Mango.Services.ProductAPI.Repository
 
         public async Task<IEnumerable<SubCategoryDto>> GetSubCategories()
         {
-            List<SubCategory> subcategory = await _db.SubCategories.ToListAsync();
+            List<SubCategory> subcategory = await _db.SubCategories.Include(x=>x.category).ToListAsync();
+            subcategory.ForEach(
+                   g =>
+                   {
+                       if (g != null && g.category != null && g.category.subCategories != null)
+                           g.category.subCategories.Clear();
+                   });
             return _Mapper.Map<List<SubCategoryDto>>(subcategory);
         }
 
         public async Task<SubCategoryDto> GetSubCategoryById(int subCategoryId)
         {
-            SubCategory subCategory = await _db.SubCategories.Where(x => x.SubCategoryId == subCategoryId).FirstOrDefaultAsync();
+            SubCategory subCategory = await _db.SubCategories.Where(x => x.SubCategoryId == subCategoryId).Include(x=>x.category).FirstOrDefaultAsync();
+            if (subCategory.category.subCategories != null)
+                subCategory.category.subCategories.Clear();
+                  
             return _Mapper.Map<SubCategory, SubCategoryDto>(subCategory);
         }
     }

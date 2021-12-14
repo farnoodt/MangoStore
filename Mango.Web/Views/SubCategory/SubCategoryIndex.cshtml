@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Mango.Web.Models.Dto.SubCategoryDto>
+
+<br />
+<br />
+<div class="container p-4 border">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primary">
+                SubCategory List
+            </h1>
+        </div>
+        <div class="col text-end pt-1">
+            <a asp-action="SubCategoryCreate" class="btn btn-outline-primary">
+                <i class="fas fa-plus"></i> Create New Category
+            </a>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>SubCategory Id</th>
+                <th>SubCategory Name</th>
+                <th>Category Name</th>
+                <th></th>
+            </tr>
+        </thead>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.SubCategoryId</td>
+                <td>@item.SubCategoryName</td>
+                <td>@item.category.Name</td>
+                <td>
+                    <a asp-action="SubCategoryEdit" class="btn btn-success" asp-route-SubCategoryId="@item.SubCategoryId">
+                        <i class="fas fa-edit">
+                        </i>
+                    </a>
+                    <a asp-action="SubCategoryDelete" class="btn btn-danger" asp-route-subCategoryId="@item.SubCategoryId">
+                        <i class="fas fa-trash">
+
+                        </i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
